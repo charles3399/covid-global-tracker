@@ -1,4 +1,6 @@
-# covid-global-tracker
+# A simple COVID-19 tracker
+
+<a href="https://tracker-covid-global.netlify.app/" target="_blank">https://tracker-covid-global.netlify.app/</a>
 
 ## Project setup
 ```
