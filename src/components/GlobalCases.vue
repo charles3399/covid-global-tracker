@@ -4,7 +4,7 @@
         <p class="my-3">As of {{ currentDate }}</p>
     </div>
     <div class="mt-1 flex flex-wrap flex-row justify-center text-center">
-        <div v-for="cardData in cardDatas" :key="cardData" :class="cardData.color" class="shadow-xl p-5 m-2 rounded-lg w-72 tracking-wide">
+        <div v-for="cardData in cardDatas" :key="cardData" :class="cardData.color" class="shadow-xl p-5 m-1 rounded-lg w-72 tracking-wide">
             <h2 class="uppercase text-2xl font-bold"><i :class="cardData.icon"></i> {{ cardData.title }}</h2>
             <h3 class="uppercase text-lg mt-2">Total: <span class="text-2xl font-extrabold">{{ numbersWithCommas( cardData.total ) }}</span></h3>
             <h3 v-if="cardData.new" class="uppercase text-lg mt-2">New: <span class="text-2xl font-extrabold">{{ numbersWithCommas( cardData.new) }}</span></h3>
