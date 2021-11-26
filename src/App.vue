@@ -4,6 +4,7 @@
     <button class="hover:bg-green-600 hover:text-white transform duration-300 text-xs tracking-wide rounded-lg p-1 mb-2 uppercase" @click="refreshData"><i class="fas fa-sync-alt"> Refresh data</i></button>
     <GlobalCases :stats="worldStatus" />
     <CountryTables :countryStats="countryStats" />
+    <p class="text-lg italic my-4">Additional features coming soon!...</p>
   </main>
   <main v-else class="flex flex-col justify-center text-center mt-32 p-5">
     <img :src="loadingImage" class="w-20 mx-auto" alt="loading.." />
