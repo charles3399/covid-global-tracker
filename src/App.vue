@@ -8,7 +8,7 @@
   </main>
   <main v-else class="flex flex-col justify-center text-center mt-32 p-5">
     <img :src="loadingImage" class="w-20 mx-auto" alt="loading.." />
-    <span class="text-lg">Fetching data, this may take a while...</span>
+    <span class="text-lg">Getting data, this may take a while...</span>
   </main>
 </template>
 
