@@ -7,8 +7,8 @@
     <p class="text-lg italic my-4">Additional features coming soon!...</p>
   </main>
   <main v-else class="flex flex-col justify-center text-center mt-32 p-5">
-    <img :src="loadingImage" class="w-20 mx-auto" alt="loading.." />
-    <span class="text-lg">Getting data, this may take a while...</span>
+    <!-- <img :src="loadingImage" class="w-20 mx-auto" alt="loading.." /> -->
+    <span class="text-lg">We're sorry, the provider for COVID-19 statistics is unavailable at this time...</span>
   </main>
 </template>
 
