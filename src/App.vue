@@ -8,7 +8,7 @@
   </main>
   <main v-else class="flex flex-col justify-center text-center mt-32 p-5">
     <!-- <img :src="loadingImage" class="w-20 mx-auto" alt="loading.." /> -->
-    <span class="text-lg">We're sorry, the provider for COVID-19 statistics is unavailable at this time...</span>
+    <span class="text-lg">We're sorry for the inconvenience, the provider for COVID-19 statistics is unavailable at this time. Give us a week or two for the provider to solve this problem. Thank you!</span>
   </main>
 </template>
 
@@ -30,7 +30,7 @@ export default {
       countryStats: [],
       loading: true,
       loadingImage: require('@/assets/loading.gif'),
-      apiKey: '75e629b8a7msh589773de52d5426p172818jsnd01590b0a88d',
+      apiKey: '75e629b8a7msh589773de52d5426p172818jsnd01590b0a88d'
     }
   },
   methods: {
@@ -38,7 +38,8 @@ export default {
       const response = await fetch('https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/world', {
         method: 'GET',
         headers: { 
-          'x-rapidapi-host': 'vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com','x-rapidapi-key': this.apiKey
+          'x-rapidapi-host': 'vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com',
+          'x-rapidapi-key': this.apiKey
         }
       })
       const worldData = await response.json()
@@ -49,7 +50,8 @@ export default {
       const response = await fetch('https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/', {
         method: 'GET',
         headers: { 
-          'x-rapidapi-host': 'vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com','x-rapidapi-key': this.apiKey
+          'x-rapidapi-host': 'vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com',
+          'x-rapidapi-key': this.apiKey
         }
       })
       let countryData = await response.json()
