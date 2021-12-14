@@ -1,8 +1,15 @@
 <template>
-  <div class="px-2 m-3 mx-auto text-center">
-      <h1 class="mb-3 font-semibold uppercase">Number of cases comparison for 2020 vs 2021</h1>
-      <p class="italic text-xs">(Click on the label below to show individual datasets)</p>
-      <Chart type="line" :data="chartdata" :options="options" />
+  <div class="p-2 border-1 p-shadow-11 rounded-3xl my-7 mx-auto text-center bg-indigo-900 text-white">
+      <div class="px-2 m-3">
+        <h1 class="mb-3 font-semibold text-2xl">Philippines total cases and deaths for the past 6 months</h1>
+        <p class="italic text-xs">(Click on the label below to show individual datasets)</p>
+        <Chart type="line" :data="chartdata" :options="options" />
+      </div>
+      <div class="px-2 mt-7">
+        <h1 class="mb-3 font-semibold text-2xl">Philippines new cases and deaths for the past 6 months</h1>
+        <p class="italic text-xs">(Click on the label below to show individual datasets)</p>
+        <Chart type="line" :data="chartdataNew" :options="options" />
+      </div>
   </div>
 </template>
 
@@ -12,34 +19,57 @@ import moment from 'moment'
 
 export default {
   name: 'LineChart',
+  props: ['lineChartStats'],
   components: {
       Chart
   },
   data() {
       return {
           chartdata: {
-              labels: moment.months(),
+              labels: this.sortTotalDate(),
               datasets: [
                   {
-                      label: '2020',
+                      label: 'Total cases',
                       backgroundColor: 'rgba(68, 226, 94, 0.548)',
                       borderColor: '#30c746',
                       tension: .4,
                       fill: true,
-                      data: [10, 15, 180, 250, 553, 683, 890, 1423, 1200, 1054, 1313, 986]
+                      data: this.sortTotalCases()
                   },
                   {
-                      label: '2021',
-                      backgroundColor: 'rgba(182, 46, 46, 0.548)',
-                      borderColor: '#d64545',
+                      label: 'Total deaths',
+                      backgroundColor: 'rgba(238, 74, 74, 0.548)',
+                      borderColor: '#fc4747c5',
                       tension: .4,
                       fill: true,
-                      data: [1029, 1500, 1376, 1400, 1210, 1000, 920, 766, 899, 430, 561]
+                      data: this.sortTotalDeaths()
+                  }
+              ]
+          },
+          chartdataNew: {
+              labels: this.sortNewDate(),
+              datasets: [
+                  {
+                      label: 'New cases',
+                      backgroundColor: 'rgba(68, 226, 94, 0.548)',
+                      borderColor: '#30c746',
+                      tension: .4,
+                      fill: true,
+                      data: this.sortNewCases()
+                  },
+                  {
+                      label: 'New deaths',
+                      backgroundColor: 'rgba(238, 74, 74, 0.548)',
+                      borderColor: '#fc4747c5',
+                      tension: .4,
+                      fill: true,
+                      data: this.sortNewDeaths()
                   }
               ]
           },
           options: {
               responsive: true,
+              aspectRatio: 3,
               plugins: {
                   legend: {
                       labels: {
@@ -47,37 +77,69 @@ export default {
                               size: 15,
                               weight: 'bold'
                           },
-                          color: '#000'
+                          color: '#fff'
                       }
                   }
               },
               scales: {
                   x: {
                       ticks: {
-                          color: '#000',
+                          color: '#fff',
                           font: {
                               size: 15,
                               weight: 'bold'
                           }
                       },
                       grid: {
-                          color: '#000'
+                          color: '#fff'
                       }
                   },
                   y: {
                       ticks: {
-                          color: '#000',
+                          color: '#fff',
                           font: {
                               size: 15,
                               weight: 'bold'
                           }
                       },
                       grid: {
-                          color: '#000'
+                          color: '#fff'
                       }
                   }
               }
           }
+      }
+  },
+  methods: {
+      sortTotalDate() {
+          let mappedData = this.lineChartStats.map(e => moment(e.date).format('ll'))
+          mappedData.reverse()
+          return mappedData
+      },
+      sortTotalCases() {
+          let mappedData = this.lineChartStats.map(e => e.total_cases)
+          mappedData.sort()
+          return mappedData
+      },
+      sortTotalDeaths() {
+          let mappedData = this.lineChartStats.map(e => e.total_deaths)
+          mappedData.sort()
+          return mappedData
+      },
+      sortNewDate() {
+          let mappedData = this.lineChartStats.map(e => moment(e.date).format('ll'))
+          mappedData.reverse()
+          return mappedData
+      },
+      sortNewCases() {
+          let mappedData = this.lineChartStats.map(e => e.new_cases)
+          mappedData.reverse()
+          return mappedData
+      },
+      sortNewDeaths() {
+          let mappedData = this.lineChartStats.map(e => e.new_deaths)
+          mappedData.reverse()
+          return mappedData
       }
   }
 }

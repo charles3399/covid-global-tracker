@@ -3,12 +3,13 @@
   <main v-if="!loading" class="mt-2 p-7 text-center">
     <button class="hover:bg-green-600 hover:text-white transform duration-300 text-xs tracking-wide rounded-lg p-1 mb-2 uppercase" @click="refreshData"><i class="fas fa-sync-alt"> Refresh data</i></button>
     <GlobalCases :stats="worldStatus" />
+    <PieChart :pieChartStats="worldStatus" />
     <CountryTables :countryStats="countryStats" />
-    <p class="text-lg italic my-4">Additional features coming soon!...</p>
+    <LineChart :lineChartStats="lineChartStats" />
   </main>
   <main v-else class="flex flex-col justify-center text-center mt-32 p-5">
     <img :src="loadingImage" class="w-20 mx-auto" alt="loading.." />
-    <!-- <span class="text-lg">We're sorry for the inconvenience, the provider for COVID-19 statistics is unavailable at this time. Give us a week or two for the provider to solve this problem. Thank you!</span> -->
+    <span class="text-lg">Getting data, this may take a while...</span>
   </main>
 </template>
 
@@ -16,41 +17,48 @@
 import GlobalCases from './components/GlobalCases.vue'
 import Header from './components/Header.vue'
 import CountryTables from './components/CountryTables.vue'
+import LineChart from './components/LineChart.vue'
+import PieChart from './components/PieChart.vue'
 
 export default {
   name: 'App',
   components: {
     Header,
     GlobalCases,
-    CountryTables
+    CountryTables,
+    LineChart,
+    PieChart
 },
   data() {
     return {
       worldStatus: [],
       countryStats: [],
+      lineChartStats: [],
       loading: true,
       loadingImage: require('@/assets/loading.gif'),
+      baseUrl: 'https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api',
+      apiHost: 'vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com',
       apiKey: '75e629b8a7msh589773de52d5426p172818jsnd01590b0a88d'
     }
   },
   methods: {
     async getWorldData() {
-      const response = await fetch('https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/world', {
+      const response = await fetch(`${this.baseUrl}/npm-covid-data/world`, {
         method: 'GET',
         headers: { 
-          'x-rapidapi-host': 'vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com',
+          'x-rapidapi-host': this.apiHost,
           'x-rapidapi-key': this.apiKey
         }
       })
       const worldData = await response.json()
-      const getData = worldData.find(findWorld => { return findWorld.Country === 'World' })
+      const getData = worldData.find(findWorld => findWorld.Country === 'World')
       return getData
     },
     async getCountryData() {
-      const response = await fetch('https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api/npm-covid-data/', {
+      const response = await fetch(`${this.baseUrl}/npm-covid-data/`, {
         method: 'GET',
         headers: { 
-          'x-rapidapi-host': 'vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com',
+          'x-rapidapi-host': this.apiHost,
           'x-rapidapi-key': this.apiKey
         }
       })
@@ -59,20 +67,35 @@ export default {
       countryData = countryData.filter(allCountry => !exceptData.includes(allCountry.Country))
       return countryData
     },
+    async getLineData() {
+      const response = await fetch(`${this.baseUrl}/covid-ovid-data/sixmonth/PHL`, {
+        method: 'GET',
+        headers: {
+          'x-rapidapi-host': this.apiHost,
+          'x-rapidapi-key': this.apiKey
+        }
+      })
+      const dateData = await response.json()
+      return dateData
+    },
     async refreshData() {
       this.loading = true
       const worldData = await this.getWorldData()
       const countryData = await this.getCountryData()
+      const lineChartData = await this.getLineData()
       this.worldStatus = worldData
       this.countryStats = countryData
+      this.lineChartStats = lineChartData
       this.loading = false
     }
   },
   async created() {
     const worldData = await this.getWorldData()
     const countryData = await this.getCountryData()
+    const lineChartData = await this.getLineData()
     this.worldStatus = worldData
     this.countryStats = countryData
+    this.lineChartStats = lineChartData
     this.loading = false
   }
 }
