@@ -63,11 +63,8 @@ export default {
         return {
             numbersWithCommas(val) {
                 return Number(val).toLocaleString()
-             }
+            }
         }
-    },
-    methods: {
-        
     }
 }
 </script>
