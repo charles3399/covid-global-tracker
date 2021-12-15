@@ -1,6 +1,6 @@
 <template>
-  <div class="p-2 border-1 p-shadow-11 rounded-3xl my-7 mx-auto text-center bg-indigo-900 text-white">
-      <div class="px-2 m-3">
+  <div class="border-1 p-shadow-11 rounded-3xl mx-auto text-center bg-indigo-900 text-white">
+      <div class="px-2 my-7">
         <h1 class="mb-3 font-semibold text-2xl">Philippines total cases and deaths for the past 6 months</h1>
         <p class="italic text-xs">(Click on the label below to show individual datasets)</p>
         <Chart type="line" :data="chartdata" :options="options" />
@@ -32,7 +32,7 @@ export default {
                       label: 'Total cases',
                       backgroundColor: 'rgba(68, 226, 94, 0.548)',
                       borderColor: '#30c746',
-                      tension: .4,
+                      tension: 0,
                       fill: true,
                       data: this.sortTotalCases()
                   },
@@ -40,7 +40,7 @@ export default {
                       label: 'Total deaths',
                       backgroundColor: 'rgba(238, 74, 74, 0.548)',
                       borderColor: '#fc4747c5',
-                      tension: .4,
+                      tension: 0,
                       fill: true,
                       data: this.sortTotalDeaths()
                   }
@@ -53,7 +53,7 @@ export default {
                       label: 'New cases',
                       backgroundColor: 'rgba(68, 226, 94, 0.548)',
                       borderColor: '#30c746',
-                      tension: .4,
+                      tension: 0,
                       fill: true,
                       data: this.sortNewCases()
                   },
@@ -61,7 +61,7 @@ export default {
                       label: 'New deaths',
                       backgroundColor: 'rgba(238, 74, 74, 0.548)',
                       borderColor: '#fc4747c5',
-                      tension: .4,
+                      tension: 0,
                       fill: true,
                       data: this.sortNewDeaths()
                   }
@@ -69,13 +69,11 @@ export default {
           },
           options: {
               responsive: true,
-              aspectRatio: 3,
               plugins: {
                   legend: {
                       labels: {
                           font: {
-                              size: 15,
-                              weight: 'bold'
+                              size: 10,
                           },
                           color: '#fff'
                       }
@@ -86,8 +84,7 @@ export default {
                       ticks: {
                           color: '#fff',
                           font: {
-                              size: 15,
-                              weight: 'bold'
+                              size: 14,
                           }
                       },
                       grid: {
@@ -98,8 +95,7 @@ export default {
                       ticks: {
                           color: '#fff',
                           font: {
-                              size: 15,
-                              weight: 'bold'
+                              size: 14,
                           }
                       },
                       grid: {
@@ -146,4 +142,9 @@ export default {
 </script>
 
 <style scoped>
+    @media (max-width: 500px) {
+        h1 {
+            font-size: 10pt;
+        }
+    }
 </style>

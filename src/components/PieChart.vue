@@ -1,5 +1,5 @@
 <template>
-  <div class="p-2 my-7 mx-auto text-center border-1 p-shadow-11 rounded-3xl bg-gray-800 text-white">
+  <div class="p-2 my-7 mx-auto text-center border-1 p-shadow-11 rounded-3xl bg-indigo-800 text-white">
       <div class="px-2 m-3">
         <h1 class="mb-3 font-semibold text-2xl">Overall world condition</h1>
         <Chart type="doughnut" :data="chartdata" :options="options" />
@@ -29,13 +29,17 @@ export default {
               ]
           },
           options: {
-              legend: {
-                  labels: {
-                      fontColor: '#fff'
+              plugins: {
+                  legend: {
+                      labels: {
+                          color: '#fff',
+                          font: {
+                              size: 10
+                          }
+                      }
                   }
               },
-              responsive: true,
-              aspectRatio: 2.5,
+              responsive: true
           }
       }
   }
