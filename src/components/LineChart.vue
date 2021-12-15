@@ -1,12 +1,12 @@
 <template>
   <div class="border-1 p-shadow-11 rounded-3xl mx-auto text-center bg-indigo-900 text-white">
       <div class="px-2 my-7">
-        <h1 class="mb-3 font-semibold text-2xl">Philippines total cases and deaths for the past 6 months</h1>
+        <h1 class="mb-3 font-semibold text-2xl">{{ countryName() }} total cases and deaths for the past 6 months</h1>
         <p class="italic text-xs">(Click on the label below to show individual datasets)</p>
         <Chart type="line" :data="chartdata" :options="options" />
       </div>
       <div class="px-2 mt-7">
-        <h1 class="mb-3 font-semibold text-2xl">Philippines new cases and deaths for the past 6 months</h1>
+        <h1 class="mb-3 font-semibold text-2xl">{{ countryName() }} new cases and deaths for the past 6 months</h1>
         <p class="italic text-xs">(Click on the label below to show individual datasets)</p>
         <Chart type="line" :data="chartdataNew" :options="options" />
       </div>
@@ -69,6 +69,7 @@ export default {
         },
         options: {
             responsive: true,
+            aspectRatio: 1,
             plugins: {
                 legend: {
                     labels: {
@@ -114,12 +115,12 @@ export default {
     },
     sortTotalCases() {
         let mappedData = this.lineChartStats.map(e => e.total_cases)
-        mappedData.sort()
+        mappedData.reverse()
         return mappedData
     },
     sortTotalDeaths() {
         let mappedData = this.lineChartStats.map(e => e.total_deaths)
-        mappedData.sort()
+        mappedData.reverse()
         return mappedData
     },
     sortNewDate() {
@@ -136,6 +137,10 @@ export default {
         let mappedData = this.lineChartStats.map(e => e.new_deaths)
         mappedData.reverse()
         return mappedData
+    },
+    countryName() {
+        let country = this.lineChartStats[0].Country
+        return country
     }
   }
 }

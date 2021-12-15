@@ -17,10 +17,11 @@
             >
                     <template #header>
                         <h3 class="text-3xl font-bold">Countries</h3>
+                        <p class="italic text-xs">(Select a country below to show individual stats)</p>
                     </template>
                 <Column field="Country" header="Country" :sortable="true">
                     <template #body="slotProps">
-                        <span class="font-bold">{{ slotProps.data.Country }}</span>
+                        <span class="font-bold cursor-pointer hover:text-green-700" @click="getCountry(slotProps.data.ThreeLetterSymbol)">{{ slotProps.data.Country }}</span>
                     </template>
                 </Column>
                 <Column field="rank" header="Rank" :sortable="true"></Column>
@@ -64,6 +65,11 @@ export default {
             numbersWithCommas(val) {
                 return Number(val).toLocaleString()
             }
+        }
+    },
+    methods: {
+        getCountry(country) {
+            this.$emit('get-country', country.toUpperCase())
         }
     }
 }

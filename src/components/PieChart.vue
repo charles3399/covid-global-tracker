@@ -18,29 +18,30 @@ export default {
   },
   data() {
     return {
-        chartdata: {
-            labels: ['Total Cases', 'Total Deaths', 'Recovered', 'Active'],
-            datasets: [
-                {
-                    backgroundColor: ['#313281', '#111827', '#21532E', '#71401C'],
-                    data: [this.pieChartStats.TotalCases, this.pieChartStats.TotalDeaths, this.pieChartStats.TotalRecovered, this.pieChartStats.ActiveCases],
-                    hoverOffset: 4
-                }
-            ]
+      chartdata: {
+        labels: ['Total Cases', 'Total Deaths', 'Recovered', 'Active'],
+        datasets: [
+          {
+            backgroundColor: ['#313281', '#111827', '#21532E', '#71401C'],
+            data: [this.pieChartStats.TotalCases, this.pieChartStats.TotalDeaths, this.pieChartStats.TotalRecovered, this.pieChartStats.ActiveCases],
+            hoverOffset: 4
+          }
+        ]
+      },
+      options: {
+        plugins: {
+          legend: {
+            labels: {
+              color: '#fff',
+              font: {
+                size: 10
+              }
+            }
+          }
         },
-        options: {
-            plugins: {
-                legend: {
-                    labels: {
-                        color: '#fff',
-                        font: {
-                            size: 10
-                        }
-                    }
-                }
-            },
-            responsive: true
-        }
+        responsive: true,
+        maintainAspectRatio: true
+      }
     }
   }
 }
