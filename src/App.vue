@@ -8,6 +8,9 @@
     <div v-if="!loadingChart">
       <LineChart :lineChartStats="lineChartStats" />
     </div>
+    <div v-else>
+      <span class="text-lg">{{ loadingChartMessage }}</span>
+    </div>
   </main>
   <main v-else class="flex flex-col justify-center text-center mt-32 p-5">
     <img :src="loadingImage" class="w-20 mx-auto" alt="loading.." />
@@ -30,7 +33,7 @@ export default {
     CountryTables,
     LineChart,
     PieChart
-},
+  },
   data() {
     return {
       worldStatus: [],
@@ -38,6 +41,7 @@ export default {
       lineChartStats: [],
       loading: true,
       loadingChart: true,
+      loadingChartMessage: '',
       loadingImage: require('@/assets/loading.gif'),
       baseUrl: 'https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api',
       apiHost: 'vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com',
@@ -70,7 +74,7 @@ export default {
       countryData = countryData.filter(allCountry => !exceptData.includes(allCountry.Country))
       return countryData
     },
-    async getLineData(country) {
+    async getLineChartData(country) {
       const response = await fetch(`${this.baseUrl}/covid-ovid-data/sixmonth/${country}`, {
         method: 'GET',
         headers: {
@@ -81,9 +85,10 @@ export default {
       const dateData = await response.json()
       return dateData
     },
-    async getCountry(country) {
+    async getCountry({countryCode, countryName}) {
       this.loadingChart = true
-      const data = await this.getLineData(country)
+      this.loadingChartMessage = `Gathering data for ${countryName} please wait...`
+      const data = await this.getLineChartData(countryCode)
       this.lineChartStats = data
       this.loadingChart = false
     },
@@ -101,6 +106,7 @@ export default {
     const countryData = await this.getCountryData()
     this.worldStatus = worldData
     this.countryStats = countryData
+    this.loadingChartMessage = 'Select a country to show their individual stats'
     this.loading = false
   }
 }

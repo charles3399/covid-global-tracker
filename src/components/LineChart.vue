@@ -3,12 +3,12 @@
       <div class="px-2 my-7">
         <h1 class="mb-3 font-semibold text-2xl">{{ countryName() }} total cases and deaths for the past 6 months</h1>
         <p class="italic text-xs">(Click on the label below to show individual datasets)</p>
-        <Chart type="line" :data="chartdata" :options="options" />
+        <Chart type="line" :data="chartdataTotalCases" :options="options" />
       </div>
       <div class="px-2 mt-7">
         <h1 class="mb-3 font-semibold text-2xl">{{ countryName() }} new cases and deaths for the past 6 months</h1>
         <p class="italic text-xs">(Click on the label below to show individual datasets)</p>
-        <Chart type="line" :data="chartdataNew" :options="options" />
+        <Chart type="line" :data="chartdataNewCases" :options="options" />
       </div>
   </div>
 </template>
@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-        chartdata: {
+        chartdataTotalCases: {
             labels: this.sortTotalDate(),
             datasets: [
                 {
@@ -46,7 +46,7 @@ export default {
                 }
             ]
         },
-        chartdataNew: {
+        chartdataNewCases: {
             labels: this.sortNewDate(),
             datasets: [
                 {

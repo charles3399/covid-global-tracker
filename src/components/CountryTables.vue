@@ -21,7 +21,7 @@
                     </template>
                 <Column field="Country" header="Country" :sortable="true">
                     <template #body="slotProps">
-                        <span class="font-bold cursor-pointer hover:text-green-700" @click="getCountry(slotProps.data.ThreeLetterSymbol)">{{ slotProps.data.Country }}</span>
+                        <span class="font-bold cursor-pointer hover:text-green-700" @click="getCountry(slotProps.data.ThreeLetterSymbol, slotProps.data.Country)">{{ slotProps.data.Country }}</span>
                     </template>
                 </Column>
                 <Column field="rank" header="Rank" :sortable="true"></Column>
@@ -68,8 +68,11 @@ export default {
         }
     },
     methods: {
-        getCountry(country) {
-            this.$emit('get-country', country.toUpperCase())
+        getCountry(countryCode, countryName) {
+            this.$emit('get-country', {
+                countryCode: countryCode.toUpperCase(),
+                countryName: countryName
+            })
         }
     }
 }
