@@ -14,12 +14,24 @@
             paginatorTemplate="CurrentPageReport FirstPageLink PrevPageLink PageLinks NextPageLink LastPageLink RowsPerPageDropdown"
             :rowsPerPageOptions="[5,10,20,50]"
             currentPageReportTemplate="Showing {first} to {last} of {totalRecords}"
+            v-model:filters="filters"
+            :globalFilterFields="['Country']"
             >
-                    <template #header>
-                        <h3 class="text-3xl font-bold">Countries</h3>
-                        <p class="italic text-xs">(Select a country below to show individual stats)</p>
-                    </template>
-                <Column field="Country" header="Country" :sortable="true">
+                <template #header>
+                    <div id="country-title">
+                        <h3 class="text-3xl font-bold" id="country-label">Countries</h3>
+                        <p class="italic text-xs" id="country-description">(Select a country below to show individual stats)</p>
+                    </div>
+                    <div class="p-d-flex p-flex-wrap p-jc-center p-ai-center">
+                        <div>
+                            <span class="p-input-icon-right p-m-1">
+                                <i class="pi pi-times cursor-pointer" @click="clearFilter()" />
+                                <InputText type="text" class="p-px-1 p-py-1" v-model="filters['global'].value" placeholder="Search a country" />
+                            </span>
+                        </div>
+                    </div>
+                </template>
+                <Column field="Country" header="Country" filterField="Country" :sortable="true">
                     <template #body="slotProps">
                         <span class="font-bold cursor-pointer hover:text-green-700" @click="getCountry(slotProps.data.ThreeLetterSymbol, slotProps.data.Country)">{{ slotProps.data.Country }}</span>
                     </template>
@@ -52,20 +64,27 @@
 <script>
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
+import InputText from 'primevue/inputtext'
+import {FilterMatchMode,FilterOperator} from 'primevue/api';
 
 export default {
     name: 'CountryTables',
     props: ['countryStats'],
     components: {
         DataTable,
-        Column
+        Column,
+        InputText
     },
     data() {
         return {
+            filters: null,
             numbersWithCommas(val) {
                 return Number(val).toLocaleString()
             }
         }
+    },
+    created() {
+        this.initFilters()
     },
     methods: {
         getCountry(countryCode, countryName) {
@@ -73,10 +92,27 @@ export default {
                 countryCode: countryCode.toUpperCase(),
                 countryName: countryName
             })
+        },
+        clearFilter() {
+            this.initFilters()
+        },
+        initFilters() {
+            this.filters = {
+                'global': {value: null, matchMode: FilterMatchMode.CONTAINS},
+                'Country': {operator: FilterOperator.AND, constraints: [{value: null, matchMode: FilterMatchMode.STARTS_WITH}]}
+            }
         }
     }
 }
 </script>
 
 <style scoped>
+    @media ( max-width: 960px ) {
+        #country-label {
+            font-size: 16pt;
+        }
+        #country-description {
+            font-size: 8pt;
+        }
+    }
 </style>
