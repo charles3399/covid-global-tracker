@@ -9,6 +9,9 @@
       <LineChart :lineChartStats="lineChartStats" />
     </div>
     <div v-else>
+      <div v-if="loadingChartMessage !== 'Select a country to show their individual stats' ">
+        <i class="pi pi-spin pi-spinner px-1" style="font-size: 1rem"></i>
+      </div>
       <span class="text-lg">{{ loadingChartMessage }}</span>
     </div>
   </main>
