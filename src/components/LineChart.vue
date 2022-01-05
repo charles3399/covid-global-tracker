@@ -1,14 +1,14 @@
 <template>
   <div class="border-1 p-shadow-11 rounded-3xl mx-auto text-center bg-indigo-900 text-white">
       <div class="px-2 my-7">
-        <h1 class="mb-3 font-semibold text-2xl leading-tight">{{ countryName() }} total cases and deaths for the past 6 months</h1>
-        <p class="italic text-xs">(Click on the label below to show individual datasets)</p>
-        <Chart type="line" :data="chartdataTotalCases" :options="options" />
-      </div>
-      <div class="px-2 mt-7">
         <h1 class="mb-3 font-semibold text-2xl leading-tight">{{ countryName() }} new cases and deaths for the past 6 months</h1>
         <p class="italic text-xs">(Click on the label below to show individual datasets)</p>
         <Chart type="line" :data="chartdataNewCases" :options="options" />
+      </div>
+      <div class="px-2 mt-7">
+        <h1 class="mb-3 font-semibold text-2xl leading-tight">{{ countryName() }} total cases and deaths for the past 6 months</h1>
+        <p class="italic text-xs">(Click on the label below to show individual datasets)</p>
+        <Chart type="line" :data="chartdataTotalCases" :options="options" />
       </div>
   </div>
 </template>
