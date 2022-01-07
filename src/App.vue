@@ -3,7 +3,7 @@
   <main v-if="!loading" class="mt-2 p-7 text-center">
     <button class="hover:bg-green-600 hover:text-white transform duration-300 text-xs tracking-wide rounded-lg p-1 mb-2 uppercase" @click="refreshData"><i class="fas fa-sync-alt"> Refresh data</i></button>
     <GlobalCases :stats="worldStatus" />
-    <PieChart :pieChartStats="worldStatus" />
+    <BarChart :barChartStats="worldStatus" />
     <CountryTables @get-country="getCountry" :countryStats="countryStats" />
     <div v-if="!loadingChart">
       <LineChart :lineChartStats="lineChartStats" />
@@ -26,7 +26,7 @@ import GlobalCases from './components/GlobalCases.vue'
 import Header from './components/Header.vue'
 import CountryTables from './components/CountryTables.vue'
 import LineChart from './components/LineChart.vue'
-import PieChart from './components/PieChart.vue'
+import BarChart from './components/BarChart.vue'
 import { ref } from 'vue'
 
 export default {
@@ -36,7 +36,7 @@ export default {
     GlobalCases,
     CountryTables,
     LineChart,
-    PieChart
+    BarChart
   },
   setup() {
     const worldStatus = ref([])
