@@ -65,7 +65,8 @@
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import InputText from 'primevue/inputtext'
-import {FilterMatchMode,FilterOperator} from 'primevue/api';
+import {FilterMatchMode,FilterOperator} from 'primevue/api'
+import { ref } from 'vue'
 
 export default {
     name: 'CountryTables',
@@ -75,35 +76,43 @@ export default {
         Column,
         InputText
     },
-    data() {
-        return {
-            filters: null,
-            numbersWithCommas(val) {
+    setup(props, { emit }) {
+            const filters = ref(null)
+
+            const numbersWithCommas = (val) => {
                 return Number(val).toLocaleString()
             }
-        }
-    },
-    created() {
-        this.initFilters()
-    },
-    methods: {
-        getCountry(countryCode, countryName) {
-            this.$emit('get-country', {
-                countryCode: countryCode.toUpperCase(),
-                countryName: countryName
-            })
-        },
-        clearFilter() {
-            this.initFilters()
-        },
-        initFilters() {
-            this.filters = {
-                'global': {value: null, matchMode: FilterMatchMode.CONTAINS},
-                'Country': {operator: FilterOperator.AND, constraints: [{value: null, matchMode: FilterMatchMode.STARTS_WITH}]}
+
+            const getCountry = (countryCode, countryName) => {
+                emit('get-country', {
+                    countryCode: countryCode.toUpperCase(),
+                    countryName: countryName
+                })
+            }
+
+            const clearFilter = () => {
+                initFilters()
+            }
+
+            const initFilters = () => {
+                filters.value = {
+                    'global': {value: null, matchMode: FilterMatchMode.CONTAINS},
+                    'Country': {operator: FilterOperator.AND, constraints: [{value: null, matchMode: FilterMatchMode.STARTS_WITH}]}
+                }
+            }
+
+            initFilters()
+
+            return {
+                filters,
+                numbersWithCommas,
+                getCountry,
+                clearFilter,
+                initFilters,
             }
         }
-    }
 }
+
 </script>
 
 <style scoped>

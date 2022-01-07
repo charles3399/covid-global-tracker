@@ -16,6 +16,7 @@
 <script>
 import Chart from 'primevue/chart'
 import moment from 'moment'
+import { ref } from 'vue'
 
 export default {
   name: 'LineChart',
@@ -23,124 +24,142 @@ export default {
   components: {
     Chart
   },
-  data() {
-    return {
-        chartdataTotalCases: {
-            labels: this.sortTotalDate(),
-            datasets: [
-                {
-                    label: 'Total cases',
-                    backgroundColor: 'rgba(68, 226, 94, 0.548)',
-                    borderColor: '#30c746',
-                    tension: 0,
-                    fill: true,
-                    data: this.sortTotalCases()
-                },
-                {
-                    label: 'Total deaths',
-                    backgroundColor: 'rgba(238, 74, 74, 0.548)',
-                    borderColor: '#fc4747c5',
-                    tension: 0,
-                    fill: true,
-                    data: this.sortTotalDeaths()
+  setup(props) {
+    const sortTotalDate = () => {
+        let mappedData = props.lineChartStats.map(e => moment(e.date).format('ll'))
+        mappedData.reverse()
+        return mappedData
+    }
+
+    const sortTotalCases = () => {
+        let mappedData = props.lineChartStats.map(e => e.total_cases)
+        mappedData.reverse()
+        return mappedData
+    }
+
+    const sortTotalDeaths = () => {
+        let mappedData = props.lineChartStats.map(e => e.total_deaths)
+        mappedData.reverse()
+        return mappedData
+    }
+
+    const sortNewDate = () => {
+        let mappedData = props.lineChartStats.map(e => moment(e.date).format('ll'))
+        mappedData.reverse()
+        return mappedData
+    }
+
+    const sortNewCases = () => {
+        let mappedData = props.lineChartStats.map(e => e.new_cases)
+        mappedData.reverse()
+        return mappedData
+    }
+
+    const sortNewDeaths = () => {
+        let mappedData = props.lineChartStats.map(e => e.new_deaths)
+        mappedData.reverse()
+        return mappedData
+    }
+
+    const countryName = () => {
+        let country = props.lineChartStats[0].Country
+        return country
+    }
+
+    const chartdataTotalCases = ref({
+        labels: sortTotalDate(),
+        datasets: [
+            {
+                label: 'Total cases',
+                backgroundColor: 'rgba(68, 226, 94, 0.548)',
+                borderColor: '#30c746',
+                tension: 0,
+                fill: true,
+                data: sortTotalCases()
+            },
+            {
+                label: 'Total deaths',
+                backgroundColor: 'rgba(238, 74, 74, 0.548)',
+                borderColor: '#fc4747c5',
+                tension: 0,
+                fill: true,
+                data: sortTotalDeaths()
+            }
+        ]
+    })
+
+    const chartdataNewCases = ref({
+        labels: sortNewDate(),
+        datasets: [
+            {
+                label: 'New cases',
+                backgroundColor: 'rgba(68, 226, 94, 0.548)',
+                borderColor: '#30c746',
+                tension: 0,
+                fill: true,
+                data: sortNewCases()
+            },
+            {
+                label: 'New deaths',
+                backgroundColor: 'rgba(238, 74, 74, 0.548)',
+                borderColor: '#fc4747c5',
+                tension: 0,
+                fill: true,
+                data: sortNewDeaths()
+            }
+        ]
+    })
+
+    const options = ref({
+        responsive: true,
+        pointRadius: 1,
+        plugins: {
+            legend: {
+                labels: {
+                    font: {
+                        size: 10,
+                    },
+                    color: '#fff'
                 }
-            ]
+            }
         },
-        chartdataNewCases: {
-            labels: this.sortNewDate(),
-            datasets: [
-                {
-                    label: 'New cases',
-                    backgroundColor: 'rgba(68, 226, 94, 0.548)',
-                    borderColor: '#30c746',
-                    tension: 0,
-                    fill: true,
-                    data: this.sortNewCases()
-                },
-                {
-                    label: 'New deaths',
-                    backgroundColor: 'rgba(238, 74, 74, 0.548)',
-                    borderColor: '#fc4747c5',
-                    tension: 0,
-                    fill: true,
-                    data: this.sortNewDeaths()
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            pointRadius: 1,
-            plugins: {
-                legend: {
-                    labels: {
-                        font: {
-                            size: 10,
-                        },
-                        color: '#fff'
+        scales: {
+            x: {
+                ticks: {
+                    color: '#fff',
+                    font: {
+                        size: 14,
                     }
+                },
+                grid: {
+                    color: '#fff'
                 }
             },
-            scales: {
-                x: {
-                    ticks: {
-                        color: '#fff',
-                        font: {
-                            size: 14,
-                        }
-                    },
-                    grid: {
-                        color: '#fff'
+            y: {
+                ticks: {
+                    color: '#fff',
+                    font: {
+                        size: 14,
                     }
                 },
-                y: {
-                    ticks: {
-                        color: '#fff',
-                        font: {
-                            size: 14,
-                        }
-                    },
-                    grid: {
-                        color: '#fff'
-                    }
+                grid: {
+                    color: '#fff'
                 }
             }
         }
-    }
-  },
-  methods: {
-    sortTotalDate() {
-        let mappedData = this.lineChartStats.map(e => moment(e.date).format('ll'))
-        mappedData.reverse()
-        return mappedData
-    },
-    sortTotalCases() {
-        let mappedData = this.lineChartStats.map(e => e.total_cases)
-        mappedData.reverse()
-        return mappedData
-    },
-    sortTotalDeaths() {
-        let mappedData = this.lineChartStats.map(e => e.total_deaths)
-        mappedData.reverse()
-        return mappedData
-    },
-    sortNewDate() {
-        let mappedData = this.lineChartStats.map(e => moment(e.date).format('ll'))
-        mappedData.reverse()
-        return mappedData
-    },
-    sortNewCases() {
-        let mappedData = this.lineChartStats.map(e => e.new_cases)
-        mappedData.reverse()
-        return mappedData
-    },
-    sortNewDeaths() {
-        let mappedData = this.lineChartStats.map(e => e.new_deaths)
-        mappedData.reverse()
-        return mappedData
-    },
-    countryName() {
-        let country = this.lineChartStats[0].Country
-        return country
+    })
+
+    return {
+        chartdataTotalCases,
+        chartdataNewCases,
+        options,
+        sortTotalDate,
+        sortTotalCases,
+        sortTotalDeaths,
+        sortNewDate,
+        sortNewCases,
+        sortNewDeaths,
+        countryName
     }
   }
 }
