@@ -54,7 +54,17 @@
                 </Column>
                 <Column field="ActiveCases" header="Active cases" :sortable="true">
                     <template #body="slotProps">
-                        <span class="text-yellow-500">{{numbersWithCommas(slotProps.data.ActiveCases)}}</span>
+                        <span class="t text-yellow-500">{{numbersWithCommas(slotProps.data.ActiveCases)}}</span>
+                    </template>
+                </Column>
+                <Column field="Serious_Critical" header="Critical" :sortable="true">
+                    <template #body="slotProps">
+                        <span class="t text-blue-500">{{numbersWithCommas(slotProps.data.Serious_Critical)}}</span>
+                    </template>
+                </Column>
+                <Column field="TotalTests" header="Total Tests" :sortable="true">
+                    <template #body="slotProps">
+                        <span class="t text-indigo-500">{{numbersWithCommas(slotProps.data.TotalTests)}}</span>
                     </template>
                 </Column>
         </DataTable>
