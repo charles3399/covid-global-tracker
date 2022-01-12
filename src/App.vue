@@ -2,6 +2,7 @@
   <Header />
   <main v-if="!loading" class="mt-2 p-7 text-center">
     <button class="hover:bg-green-600 hover:text-white transform duration-300 text-xs tracking-wide rounded-lg p-1 mb-2 uppercase" @click="refreshData"><i class="fas fa-sync-alt"> Refresh data</i></button>
+    <button :style="scrollVisibility" @click="scrollTop" class="text-blue-400 hover:text-blue-600 text-5xl fixed right-10 bottom-12 z-10"><i class="fas fa-arrow-circle-up"></i></button>
     <GlobalCases :stats="worldStatus" />
     <BarChart :barChartStats="worldStatus" />
     <CountryTables @get-country="getCountry" :countryStats="countryStats" />
@@ -27,7 +28,7 @@ import Header from './components/Header.vue'
 import CountryTables from './components/CountryTables.vue'
 import LineChart from './components/LineChart.vue'
 import BarChart from './components/BarChart.vue'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 
 export default {
   name: 'App',
@@ -39,6 +40,7 @@ export default {
     BarChart
   },
   setup() {
+    const scrollVisibility = ref({ display: 'none' })
     const worldStatus = ref([])
     const countryStats = ref([])
     const lineChartStats = ref([])
@@ -49,6 +51,21 @@ export default {
     const baseUrl = ref('https:vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api')
     const apiHost = ref('vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com')
     const apiKey = ref('75e629b8a7msh589773de52d5426p172818jsnd01590b0a88d')
+
+    const scrollTop = () => {
+      window.scrollTo({top: 0})
+    }
+
+    const buttonVisibility = () => {
+      window.onscroll = () => {
+        if(document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+          scrollVisibility.value.display = 'block'
+        }
+        else {
+          scrollVisibility.value.display = 'none'
+        }
+      }
+    }
 
     const getWorldData = async () => {
       const response = await fetch(`${baseUrl.value}/npm-covid-data/world`, {
@@ -115,9 +132,14 @@ export default {
       loading.value = false
     }
 
+    onMounted(() => {
+      buttonVisibility()
+    })
+
     createdData()
 
     return {
+      scrollVisibility,
       worldStatus,
       countryStats,
       lineChartStats,
@@ -128,6 +150,8 @@ export default {
       baseUrl,
       apiHost,
       apiKey,
+      scrollTop,
+      buttonVisibility,
       getWorldData,
       getCountryData,
       getLineChartData,
