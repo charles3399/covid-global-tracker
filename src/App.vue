@@ -48,7 +48,7 @@ export default {
     const loadingChart = ref(true)
     const loadingChartMessage = ref('')
     const loadingImage = ref(require('@/assets/loading.gif'))
-    const baseUrl = ref('https:vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api')
+    const baseUrl = ref('https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api')
     const apiHost = ref('vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com')
     const apiKey = ref('75e629b8a7msh589773de52d5426p172818jsnd01590b0a88d')
 
