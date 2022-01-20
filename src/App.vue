@@ -17,7 +17,7 @@
     </div>
   </main>
   <main v-else class="flex flex-col justify-center text-center mt-32 p-5">
-    <img :src="loadingImage" class="w-20 mx-auto" alt="loading.." />
+    <i class="pi pi-spin pi-spinner px-1 w-20 mx-auto" style="font-size: 2rem"></i>
     <span class="text-lg">Getting data, this may take a while...</span>
   </main>
 </template>
@@ -47,7 +47,6 @@ export default {
     const loading = ref(true)
     const loadingChart = ref(true)
     const loadingChartMessage = ref('')
-    const loadingImage = ref(require('@/assets/loading.gif'))
     const baseUrl = ref('https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api')
     const apiHost = ref('vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com')
     const apiKey = ref('75e629b8a7msh589773de52d5426p172818jsnd01590b0a88d')
@@ -146,7 +145,6 @@ export default {
       loading,
       loadingChart,
       loadingChartMessage,
-      loadingImage,
       baseUrl,
       apiHost,
       apiKey,
