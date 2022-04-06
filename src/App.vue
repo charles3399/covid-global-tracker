@@ -15,6 +15,7 @@
       </div>
       <span class="text-lg">{{ loadingChartMessage }}</span>
     </div>
+    <Footer />
   </main>
   <main v-else class="flex flex-col justify-center text-center mt-32 p-5">
     <i class="pi pi-spin pi-spinner px-1 w-20 mx-auto" style="font-size: 2rem"></i>
@@ -28,6 +29,7 @@ import Header from './components/Header.vue'
 import CountryTables from './components/CountryTables.vue'
 import LineChart from './components/LineChart.vue'
 import BarChart from './components/BarChart.vue'
+import Footer from './components/Footer.vue'
 import { ref, onMounted } from 'vue'
 
 export default {
@@ -37,7 +39,8 @@ export default {
     GlobalCases,
     CountryTables,
     LineChart,
-    BarChart
+    BarChart,
+    Footer
   },
   setup() {
     const scrollVisibility = ref({ display: 'none' })
