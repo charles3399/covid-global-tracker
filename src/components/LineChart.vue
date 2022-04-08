@@ -26,44 +26,31 @@ export default {
   },
   setup(props) {
     const sortTotalDate = () => {
-        let mappedData = props.lineChartStats.map(e => moment(e.date).format('ll'))
-        mappedData.reverse()
-        return mappedData
+        return props.lineChartStats.map(e => moment(e.date).format('ll')).reverse()
     }
 
     const sortTotalCases = () => {
-        let mappedData = props.lineChartStats.map(e => e.total_cases)
-        mappedData.reverse()
-        return mappedData
+        return props.lineChartStats.map(e => e.total_cases).reverse()
     }
 
     const sortTotalDeaths = () => {
-        let mappedData = props.lineChartStats.map(e => e.total_deaths)
-        mappedData.reverse()
-        return mappedData
+        return props.lineChartStats.map(e => e.total_deaths).reverse()
     }
 
     const sortNewDate = () => {
-        let mappedData = props.lineChartStats.map(e => moment(e.date).format('ll'))
-        mappedData.reverse()
-        return mappedData
+        return props.lineChartStats.map(e => moment(e.date).format('ll')).reverse()
     }
 
     const sortNewCases = () => {
-        let mappedData = props.lineChartStats.map(e => e.new_cases)
-        mappedData.reverse()
-        return mappedData
+        return props.lineChartStats.map(e => e.new_cases).reverse()
     }
 
     const sortNewDeaths = () => {
-        let mappedData = props.lineChartStats.map(e => e.new_deaths)
-        mappedData.reverse()
-        return mappedData
+        return props.lineChartStats.map(e => e.new_deaths).reverse()
     }
 
     const countryName = () => {
-        let country = props.lineChartStats[0].Country
-        return country
+        return props.lineChartStats[0].Country
     }
 
     const chartdataTotalCases = ref({
