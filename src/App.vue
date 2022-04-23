@@ -50,9 +50,9 @@ export default {
     const loading = ref(true)
     const loadingChart = ref(true)
     const loadingChartMessage = ref('')
-    const baseUrl = ref('https://vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com/api')
-    const apiHost = ref('vaccovid-coronavirus-vaccine-and-treatment-tracker.p.rapidapi.com')
-    const apiKey = ref('75e629b8a7msh589773de52d5426p172818jsnd01590b0a88d')
+    const baseUrl = ref(process.env.VUE_APP_URL)
+    const apiHost = ref(process.env.VUE_APP_HOST)
+    const apiKey = ref(process.env.VUE_APP_KEY)
 
     const scrollTop = () => {
       window.scrollTo({top: 0})
@@ -148,17 +148,9 @@ export default {
       loading,
       loadingChart,
       loadingChartMessage,
-      baseUrl,
-      apiHost,
-      apiKey,
       scrollTop,
-      buttonVisibility,
-      getWorldData,
-      getCountryData,
-      getLineChartData,
       getCountry,
       refreshData,
-      createdData
     }
   }
 }
