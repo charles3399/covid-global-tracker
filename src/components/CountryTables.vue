@@ -75,52 +75,37 @@
 import DataTable from 'primevue/datatable'
 import Column from 'primevue/column'
 import InputText from 'primevue/inputtext'
-import {FilterMatchMode,FilterOperator} from 'primevue/api'
-import { ref } from 'vue'
+import useCountryTables from '../composables/useCountryTables'
 
 export default {
     name: 'CountryTables',
-    props: ['countryStats'],
+    props: {
+        countryStats: {
+            type: Object
+        }
+    },
     components: {
         DataTable,
         Column,
         InputText
     },
-    setup(props, { emit }) {
-            const filters = ref(null)
+    setup(props, context) {
+        const {
+            filters,
+            numbersWithCommas,
+            getCountry,
+            clearFilter,
+            initFilters,
+        } = useCountryTables(props, context)
 
-            const numbersWithCommas = (val) => {
-                return Number(val).toLocaleString()
-            }
-
-            const getCountry = (countryCode, countryName) => {
-                emit('get-country', {
-                    countryCode: countryCode.toUpperCase(),
-                    countryName: countryName
-                })
-            }
-
-            const clearFilter = () => {
-                initFilters()
-            }
-
-            const initFilters = () => {
-                filters.value = {
-                    'global': {value: null, matchMode: FilterMatchMode.CONTAINS},
-                    'Country': {operator: FilterOperator.AND, constraints: [{value: null, matchMode: FilterMatchMode.STARTS_WITH}]}
-                }
-            }
-
-            initFilters()
-
-            return {
-                filters,
-                numbersWithCommas,
-                getCountry,
-                clearFilter,
-                initFilters,
-            }
+        return {
+            filters,
+            numbersWithCommas,
+            getCountry,
+            clearFilter,
+            initFilters,
         }
+    }
 }
 
 </script>

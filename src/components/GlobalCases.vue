@@ -14,24 +14,19 @@
 </template>
 
 <script>
-import moment from 'moment'
+import useGlobalCases from '../composables/useGlobalCases'
 
 export default {
     name: 'CardCases',
-    props: ['stats'],
-    data() {
-        return {
-            numbersWithCommas(val) {
-                return Number(val).toLocaleString()
-            },
-            currentDate: moment().format('LL'),
-            cardDatas: [
-                { title: 'Total Cases', icon: 'far fa-chart-bar', color: 'bg-indigo-900 text-purple-200', total: this.stats.TotalCases, new: this.stats.NewCases  },
-                { title: 'Active Cases', icon: 'fas fa-exclamation-circle', color: 'bg-yellow-700 text-yellow-200', total: this.stats.ActiveCases, critical: this.stats.Serious_Critical },
-                { title: 'Recoveries', icon: 'fas fa-heartbeat', color: 'bg-green-900 text-green-200', total: this.stats.TotalRecovered, new: this.stats.NewRecovered  },
-                { title: 'Deaths', icon: 'fas fa-skull', color: 'bg-gray-900 text-red-200', total: this.stats.TotalDeaths, new: this.stats.NewDeaths  }
-            ]
+    props: {
+        stats: {
+            type: Object
         }
+    },
+    setup(props) {
+        const { numbersWithCommas, currentDate, cardDatas } = useGlobalCases(props)
+
+        return { numbersWithCommas, currentDate, cardDatas }
     }
 }
 </script>
