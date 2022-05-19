@@ -1,4 +1,5 @@
 import { ref, onMounted } from 'vue'
+import axios from 'axios'
 
 export default function useCovidData() {
     const scrollVisibility = ref({ display: 'none' })
@@ -28,41 +29,50 @@ export default function useCovidData() {
     }
 
     const getWorldData = async () => {
-      const response = await fetch(`${baseUrl.value}/npm-covid-data/world`, {
+      const options = {
         method: 'GET',
-        headers: { 
+        url: `${baseUrl.value}/npm-covid-data/world`,
+        headers: {
           'x-rapidapi-host': apiHost.value,
           'x-rapidapi-key': apiKey.value
         }
-      })
-      const worldData = await response.json()
+      }
+
+      const response = await axios.request(options)
+      const worldData = await response.data
       const getData = worldData.find(findWorld => findWorld.Country === 'World')
       return getData
     }
 
     const getCountryData = async () => {
-      const response = await fetch(`${baseUrl.value}/npm-covid-data/`, {
+      const options = {
         method: 'GET',
+        url: `${baseUrl.value}/npm-covid-data/`,
         headers: { 
           'x-rapidapi-host': apiHost.value,
           'x-rapidapi-key': apiKey.value
         }
-      })
-      let countryData = await response.json()
+      }
+
+      const response = await axios.request(options)
+      let countryData = await response.data
       let exceptData = ['World','Total:']
       countryData = countryData.filter(allCountry => !exceptData.includes(allCountry.Country))
       return countryData
     }
 
     const getLineChartData = async (country) => {
-      const response = await fetch(`${baseUrl.value}/covid-ovid-data/sixmonth/${country}`, {
+      const options = {
         method: 'GET',
+        url: `${baseUrl.value}/covid-ovid-data/sixmonth/${country}`,
         headers: {
           'x-rapidapi-host': apiHost.value,
           'x-rapidapi-key': apiKey.value
         }
-      })
-      const dateData = await response.json()
+      }
+
+      const response = await axios.request(options)
+      const dateData = await response.data
       return dateData
     }
 
