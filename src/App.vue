@@ -15,6 +15,7 @@
       </div>
       <span class="text-lg">{{ loadingChartMessage }}</span>
     </div>
+    <News />
     <Footer />
   </main>
   <main v-else class="flex flex-col justify-center text-center mt-32 p-5">
@@ -31,6 +32,7 @@ import LineChart from './components/LineChart.vue'
 import BarChart from './components/BarChart.vue'
 import Footer from './components/Footer.vue'
 import useCovidData from './composables/useCovidData'
+import News from './components/News.vue'
 
 export default {
   name: 'App',
@@ -40,8 +42,9 @@ export default {
     CountryTables,
     LineChart,
     BarChart,
-    Footer
-  },
+    Footer,
+    News
+},
   setup() {
     const {
       scrollVisibility,
