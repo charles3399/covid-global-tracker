@@ -20,7 +20,6 @@ export default function useNews() {
         const response = await axios.request(options)
         const newsData = await response.data
         news.value = newsData
-        console.log(newsData)
     }
 
     return {
