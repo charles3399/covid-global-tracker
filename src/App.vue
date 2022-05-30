@@ -4,7 +4,6 @@
     <button class="hover:bg-green-600 hover:text-white transform duration-300 text-xs tracking-wide rounded-lg p-1 mb-2 uppercase" @click="refreshData"><i class="fas fa-sync-alt"> Refresh data</i></button>
     <button :style="scrollVisibility" @click="scrollTop" class="text-blue-400 hover:text-blue-600 text-5xl fixed right-10 bottom-12 z-10"><i class="fas fa-arrow-circle-up"></i></button>
     <GlobalCases :stats="worldStatus" />
-    <BarChart :barChartStats="worldStatus" />
     <CountryTables @get-country="getCountry" :countryStats="countryStats" />
     <div v-if="!loadingChart">
       <LineChart :lineChartStats="lineChartStats" />
@@ -29,7 +28,6 @@ import GlobalCases from './components/GlobalCases.vue'
 import Header from './components/Header.vue'
 import CountryTables from './components/CountryTables.vue'
 import LineChart from './components/LineChart.vue'
-import BarChart from './components/BarChart.vue'
 import Footer from './components/Footer.vue'
 import useCovidData from './composables/useCovidData'
 import News from './components/News.vue'
@@ -41,7 +39,6 @@ export default {
     GlobalCases,
     CountryTables,
     LineChart,
-    BarChart,
     Footer,
     News
 },
@@ -60,16 +57,16 @@ export default {
     } = useCovidData()
 
     return {
-       scrollVisibility,
-        worldStatus,
-        countryStats,
-        lineChartStats,
-        loading,
-        loadingChart,
-        loadingChartMessage,
-        scrollTop,
-        getCountry,
-        refreshData,
+      scrollVisibility,
+      worldStatus,
+      countryStats,
+      lineChartStats,
+      loading,
+      loadingChart,
+      loadingChartMessage,
+      scrollTop,
+      getCountry,
+      refreshData,
     }
   }
 }
