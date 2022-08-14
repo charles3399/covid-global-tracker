@@ -5,7 +5,7 @@
     <button :style="scrollVisibility" @click="scrollTop" class="text-blue-400 hover:text-blue-600 text-5xl fixed right-10 bottom-12 z-10"><i class="fas fa-arrow-circle-up"></i></button>
     <GlobalCases :stats="worldStatus" />
     <CountryTables @get-country="getCountry" :countryStats="countryStats" />
-    <div v-if="!loadingChart">
+    <!-- <div v-if="!loadingChart">
       <LineChart :lineChartStats="lineChartStats" />
     </div>
     <div v-else>
@@ -13,7 +13,7 @@
         <i class="pi pi-spin pi-spinner px-1" style="font-size: 1rem"></i>
       </div>
       <span class="text-lg">{{ loadingChartMessage }}</span>
-    </div>
+    </div> -->
     <News />
     <Footer />
   </main>
@@ -27,7 +27,7 @@
 import GlobalCases from './components/GlobalCases.vue'
 import Header from './components/Header.vue'
 import CountryTables from './components/CountryTables.vue'
-import LineChart from './components/LineChart.vue'
+//import LineChart from './components/LineChart.vue'
 import Footer from './components/Footer.vue'
 import useCovidData from './composables/useCovidData'
 import News from './components/News.vue'
@@ -38,7 +38,7 @@ export default {
     Header,
     GlobalCases,
     CountryTables,
-    LineChart,
+    //LineChart,
     Footer,
     News
 },
@@ -47,10 +47,10 @@ export default {
       scrollVisibility,
       worldStatus,
       countryStats,
-      lineChartStats,
+      //lineChartStats,
       loading,
-      loadingChart,
-      loadingChartMessage,
+      //loadingChart,
+      //loadingChartMessage,
       scrollTop,
       getCountry,
       refreshData,
@@ -60,10 +60,10 @@ export default {
       scrollVisibility,
       worldStatus,
       countryStats,
-      lineChartStats,
+      //lineChartStats,
       loading,
-      loadingChart,
-      loadingChartMessage,
+      //loadingChart,
+      //loadingChartMessage,
       scrollTop,
       getCountry,
       refreshData,
