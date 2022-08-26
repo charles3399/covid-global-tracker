@@ -1,0 +1,3 @@
+VUE_APP_KEY = Add your app key here (must be enclosed with single quotes)
+VUE_APP_HOST = the API host
+VUE_APP_URL = the API URL
