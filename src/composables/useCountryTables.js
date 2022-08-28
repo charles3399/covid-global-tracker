@@ -4,9 +4,7 @@ import { ref } from 'vue'
 export default function useCountryTables(props, context) {
     const filters = ref(null)
 
-    const numbersWithCommas = (val) => {
-        return Number(val).toLocaleString()
-    }
+    const numbersWithCommas = val => Number(val).toLocaleString()
 
     const getCountry = (countryCode, countryName) => {
         context.emit('get-country', {
@@ -15,9 +13,7 @@ export default function useCountryTables(props, context) {
         })
     }
 
-    const clearFilter = () => {
-        initFilters()
-    }
+    const clearFilter = () => initFilters()
 
     const initFilters = () => {
         filters.value = {

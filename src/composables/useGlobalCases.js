@@ -2,9 +2,7 @@ import moment from 'moment'
 import { ref } from 'vue'
 
 export default function useGlobalCases(props) {
-    const numbersWithCommas = (val) => {
-        return Number(val).toLocaleString()
-    }
+    const numbersWithCommas = val => Number(val).toLocaleString()
 
     const currentDate = moment().format('LL')
 

@@ -2,33 +2,19 @@ import { ref } from 'vue'
 import moment from 'moment'
 
 export default function useLineChart(props) {
-    const sortTotalDate = () => {
-        return props.lineChartStats.map(e => moment(e.date).format('ll')).reverse()
-    }
+    const sortTotalDate = () => props.lineChartStats.map(e => moment(e.date).format('ll')).reverse()
 
-    const sortTotalCases = () => {
-        return props.lineChartStats.map(e => e.total_cases).reverse()
-    }
+    const sortTotalCases = () => props.lineChartStats.map(e => e.total_cases).reverse()
 
-    const sortTotalDeaths = () => {
-        return props.lineChartStats.map(e => e.total_deaths).reverse()
-    }
+    const sortTotalDeaths = () => props.lineChartStats.map(e => e.total_deaths).reverse()
 
-    const sortNewDate = () => {
-        return props.lineChartStats.map(e => moment(e.date).format('ll')).reverse()
-    }
+    const sortNewDate = () => props.lineChartStats.map(e => moment(e.date).format('ll')).reverse()
 
-    const sortNewCases = () => {
-        return props.lineChartStats.map(e => e.new_cases).reverse()
-    }
+    const sortNewCases = () => props.lineChartStats.map(e => e.new_cases).reverse()
 
-    const sortNewDeaths = () => {
-        return props.lineChartStats.map(e => e.new_deaths).reverse()
-    }
+    const sortNewDeaths = () => props.lineChartStats.map(e => e.new_deaths).reverse()
 
-    const countryName = () => {
-        return props.lineChartStats[0].Country
-    }
+    const countryName = () => props.lineChartStats[0].Country
 
     const chartdataTotalCases = ref({
         labels: sortTotalDate(),
