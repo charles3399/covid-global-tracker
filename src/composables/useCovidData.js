@@ -98,7 +98,7 @@ export default function useCovidData() {
       const countryData = await getCountryData()
       worldStatus.value = worldData
       countryStats.value = countryData
-      //loadingChartMessage.value = 'Select a country to show their individual stats'
+      loadingChartMessage.value = 'Select a country to show their individual stats'
       loading.value = false
     }
 

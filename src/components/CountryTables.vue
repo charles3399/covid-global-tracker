@@ -20,7 +20,7 @@
                 <template #header>
                     <div id="country-title">
                         <h3 class="text-3xl font-bold py-3" id="country-label">Countries</h3>
-                        <!-- <p class="italic text-xs" id="country-description">(Select a country below to show individual stats)</p> -->
+                        <p class="italic text-xs" id="country-description">(Select a country below to show individual stats)</p>
                     </div>
                     <div class="p-d-flex p-flex-wrap p-jc-center p-ai-center">
                         <div>
@@ -33,8 +33,8 @@
                 </template>
                 <Column field="Country" header="Country" filterField="Country" :sortable="true">
                     <template #body="slotProps">
-                        <!-- <span class="font-bold cursor-pointer hover:text-green-700" @click="getCountry(slotProps.data.ThreeLetterSymbol, slotProps.data.Country)">{{ slotProps.data.Country }}</span> -->
-                        <span class="font-bold">{{ slotProps.data.Country }}</span>
+                        <span class="font-bold cursor-pointer hover:text-green-700" @click="getCountry(slotProps.data.ThreeLetterSymbol, slotProps.data.Country)">{{ slotProps.data.Country }}</span>
+                        <!-- <span class="font-bold">{{ slotProps.data.Country }}</span> -->
                     </template>
                 </Column>
                 <Column field="rank" header="Rank" :sortable="true"></Column>
