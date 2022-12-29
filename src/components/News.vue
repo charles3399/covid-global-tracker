@@ -1,7 +1,7 @@
 <template>
     <div class="p-2 my-7 mx-auto text-center border-1 p-shadow-11 rounded-3xl">
       <div class="px-2 m-3">
-        <h1 class="mb-3 font-semibold text-2xl">News</h1>
+        <h1 class="mb-3 font-semibold text-2xl">Latest News</h1>
         <main v-if="!loading">
             <div v-if="news" class="flex flex-row flex-wrap justify-center">
                 <div class="p-2 m-2 w-80" v-for="headlines in news.news" :key="headlines">
@@ -14,7 +14,7 @@
                                 <h1 class="text-lg">{{ headlines.title }}</h1>
                             </template>
                             <template #content>
-                                <p class="text-sm">Source: {{ headlines.reference }}</p>
+                                <p class="text-sm">Source: <strong>{{ readableWord(headlines.reference) }}</strong></p>
                             </template>
                             <template #footer>
                                 <p class="text-xs italic">Date published: {{ moment(headlines.pubDate).format('LLL') }}</p>
@@ -52,12 +52,17 @@ export default {
         loading,
     } = useNews()
 
+    const readableWord = (data) => {
+        return data.replace(/-/g, ' ')
+    }
+
     onMounted(getNews)
 
     return {
         moment,
         news,
         loading,
+        readableWord
     }
 }
 }
