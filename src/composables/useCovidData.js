@@ -29,51 +29,63 @@ export default function useCovidData() {
     }
 
     const getWorldData = async () => {
-      const options = {
-        method: 'GET',
-        url: `${baseUrl.value}/npm-covid-data/world`,
-        headers: {
-          'x-rapidapi-host': apiHost.value,
-          'x-rapidapi-key': apiKey.value
+      try {
+        const options = {
+          method: 'GET',
+          url: `${baseUrl.value}/npm-covid-data/world`,
+          headers: {
+            'x-rapidapi-host': apiHost.value,
+            'x-rapidapi-key': apiKey.value
+          }
         }
+  
+        const response = await axios.request(options)
+        const worldData = await response.data
+        const getData = worldData.find(findWorld => findWorld.Country === 'World')
+        return getData
+      } catch(error) {
+        console.log(`Error: ${error}`)
       }
-
-      const response = await axios.request(options)
-      const worldData = await response.data
-      const getData = worldData.find(findWorld => findWorld.Country === 'World')
-      return getData
     }
 
     const getCountryData = async () => {
-      const options = {
-        method: 'GET',
-        url: `${baseUrl.value}/npm-covid-data/`,
-        headers: { 
-          'x-rapidapi-host': apiHost.value,
-          'x-rapidapi-key': apiKey.value
+      try {
+        const options = {
+          method: 'GET',
+          url: `${baseUrl.value}/npm-covid-data/`,
+          headers: { 
+            'x-rapidapi-host': apiHost.value,
+            'x-rapidapi-key': apiKey.value
+          }
         }
+  
+        const response = await axios.request(options)
+        let countryData = await response.data
+        let exceptData = ['World','Total:']
+        countryData = countryData.filter(allCountry => !exceptData.includes(allCountry.Country))
+        return countryData
+      } catch(error) {
+        console.log(`Error: ${error}`)
       }
-
-      const response = await axios.request(options)
-      let countryData = await response.data
-      let exceptData = ['World','Total:']
-      countryData = countryData.filter(allCountry => !exceptData.includes(allCountry.Country))
-      return countryData
     }
 
     const getLineChartData = async (country) => {
-      const options = {
-        method: 'GET',
-        url: `${baseUrl.value}/covid-ovid-data/sixmonth/${country}`,
-        headers: {
-          'x-rapidapi-host': apiHost.value,
-          'x-rapidapi-key': apiKey.value
+      try {
+        const options = {
+          method: 'GET',
+          url: `${baseUrl.value}/covid-ovid-data/sixmonth/${country}`,
+          headers: {
+            'x-rapidapi-host': apiHost.value,
+            'x-rapidapi-key': apiKey.value
+          }
         }
+  
+        const response = await axios.request(options)
+        const dateData = await response.data
+        return dateData
+      } catch (error) {
+        console.log(`Error: ${error}`)
       }
-
-      const response = await axios.request(options)
-      const dateData = await response.data
-      return dateData
     }
 
     const getCountry = async ({countryCode, countryName}) => {

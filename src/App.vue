@@ -1,26 +1,33 @@
 <template>
   <Header />
-  <main v-if="!loading" class="mt-2 p-7 text-center">
-    <button class="hover:bg-green-600 hover:text-white transform duration-300 text-xs tracking-wide rounded-lg p-1 mb-2 uppercase" @click="refreshData"><i class="fas fa-sync-alt"> Refresh data</i></button>
-    <button :style="scrollVisibility" @click="scrollTop" class="text-blue-400 hover:text-blue-600 text-5xl fixed right-10 bottom-12 z-10"><i class="fas fa-arrow-circle-up"></i></button>
-    <GlobalCases :stats="worldStatus" />
-    <CountryTables @get-country="getCountry" :countryStats="countryStats" />
-    <div v-if="!loadingChart">
-      <LineChart :lineChartStats="lineChartStats" />
-    </div>
-    <div v-else>
-      <div v-if="loadingChartMessage !== 'Select a country to show their individual stats' ">
-        <i class="pi pi-spin pi-spinner px-1" style="font-size: 1rem"></i>
+  <div v-if="worldStatus">
+    <main v-if="!loading" class="mt-2 p-7 text-center">
+      <button class="hover:bg-green-600 hover:text-white transform duration-300 text-xs tracking-wide rounded-lg p-1 mb-2 uppercase" @click="refreshData"><i class="fas fa-sync-alt"> Refresh data</i></button>
+      <button :style="scrollVisibility" @click="scrollTop" class="text-blue-400 hover:text-blue-600 text-5xl fixed right-10 bottom-12 z-10"><i class="fas fa-arrow-circle-up"></i></button>
+      <GlobalCases :stats="worldStatus" />
+      <CountryTables @get-country="getCountry" :countryStats="countryStats" />
+      <div v-if="!loadingChart">
+        <LineChart :lineChartStats="lineChartStats" />
       </div>
-      <span class="text-lg">{{ loadingChartMessage }}</span>
-    </div>
-    <News />
-    <Footer />
-  </main>
-  <main v-else class="flex flex-col justify-center text-center mt-32 p-5">
-    <i class="pi pi-spin pi-spinner px-1 w-20 mx-auto" style="font-size: 2rem"></i>
-    <span class="text-lg">Getting data, this may take a while...</span>
-  </main>
+      <div v-else>
+        <div v-if="loadingChartMessage !== 'Select a country to show their individual stats' ">
+          <i class="pi pi-spin pi-spinner px-1" style="font-size: 1rem"></i>
+        </div>
+        <span class="text-lg">{{ loadingChartMessage }}</span>
+      </div>
+      <News />
+      <Footer />
+    </main>
+    <main v-else class="flex flex-col justify-center text-center mt-32 p-5">
+      <i class="pi pi-spin pi-spinner px-1 w-20 mx-auto" style="font-size: 2rem"></i>
+      <span class="text-lg">Getting data, this may take a while...</span>
+    </main>
+  </div>
+  <div v-else>
+    <main class="flex flex-col justify-center text-center mt-32 p-5">
+      <span class="text-lg">Oops! data provider is down, we'll gonna have to wait for a while.</span>
+    </main>
+  </div>
 </template>
 
 <script>
